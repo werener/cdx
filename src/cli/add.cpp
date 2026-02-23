@@ -1,6 +1,5 @@
 #include "add.hpp"
 
-
 CLI::App *setup_add(CLI::App &app) {
     auto options = std::make_shared<AddOptions>();
     auto *add = app.add_subcommand("add", "Adds an alias");

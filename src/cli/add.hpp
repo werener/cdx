@@ -1,7 +1,6 @@
 #pragma once
 #include <CLI/CLI.hpp>
 
-
 struct AddOptions {
     std::string alias;
     std::string path;

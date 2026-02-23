@@ -10,7 +10,6 @@
 #include "cli/list.hpp"
 #include "cli/add.hpp"
 
-
 int main(int argc, char **argv) {
     CLI::App app{ "cdx" };
 
