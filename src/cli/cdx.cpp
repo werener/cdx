@@ -6,14 +6,12 @@ static bool IS_COMMAND(std::string s) { return COMMANDS.find(s) != COMMANDS.end(
 void setup_cdx(CLI::App &app) {
     auto options = std::make_shared<CdxOptions>();
 
-    auto cdx = app.add_subcommand("cdx", "");
-    cdx->group("");
 
-    cdx->add_option("alias", options->alias, "Alias of the directory you want to cd into"); // TOOD
-    cdx->add_flag("--version, -v", options->version, "Show version");
-    cdx->add_flag("--new-config", options->new_config, "Resets your cdx configuration");
+    app.add_option("alias", options->alias, "Alias of the directory you want to cd into"); // TOOD
+    app.add_flag("--version, -v", options->version, "Show version");
+    app.add_flag("--new-config", options->new_config, "Resets your cdx configuration");
 
-    cdx->callback([options]() { run_cdx(*options); });
+    app.callback([options]() { run_cdx(*options); });
 }
 
 void run_cdx(CdxOptions &options) {
