@@ -8,7 +8,7 @@ target_dir = release
 
 all: main config
 
-main: $(target_dir)/$(target) src/utils.hpp src/defines.hpp
+main: $(target_dir)/$(target) 
 
 config: 
 	@> $(target_dir)/.cdx_config.json
@@ -22,7 +22,7 @@ build/%.o: src/%.cpp
 	@mkdir -p $(@D)
 	$(cxx) $(flags) -I src -c $< -o $@
 
-build/%.o: src/cli/%.cpp src/cli/%.hpp
+build/%.o: src/cli/%.cpp src/cli/%.hpp src/utils.hpp src/defines.hpp
 	@mkdir -p $(@D)
 	@$(cxx) $(flags) -I src -c $< -o $@
 
@@ -30,7 +30,7 @@ clean:
 	rm -rf build/
 	rm -rf $(target_dir)/$(target)
     
-run: $(target_dir)/$(target) src/utils.hpp src/defines.hpp
+run: $(target_dir)/$(target) 
 	@./$(target_dir)/$(target) $(args)
 
 .PHONY: all run clean

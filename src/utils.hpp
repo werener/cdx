@@ -19,11 +19,10 @@ using json = nlohmann::json;
 #endif
 
 
-static json BASE_CONFIG =
-{
+static json BASE_CONFIG = {
     {"version", VERSION},
     {"max_alias_length", 0},
-    {"associations", {}}
+    {"associations", json::object()} 
 };
 
 static json get_config() {
