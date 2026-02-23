@@ -1,25 +1,42 @@
-# CDX
-
 ## Functionality
-Usage: cdx \<command\> [args]
-#### commands
-**add**
-Usage: add [ALIAS]  [DIR]  [OPTIONS]</br>
-Adds directory DIR (current directory by default) under alias ALIAS (last subdirectory by default)</br>
-Options:
 
-&emsp; -f,--force {TODO}
-no confirmation needed for alias creation
-&emsp; -g,--generate=TITLE {TODO}
-Immediately generates bash function TITLE that substitutes for using cdx [ALIAS]
+Usage: 
+```markdown
+cdx <command> [OPTIONS] [ARGS]`
+```
 
+| **Option**    | **Description**                     |
+| ------------- | ----------------------------------- |
+| -v, --version | Show version of current istallation |
 
-**list**
-Usage: list [OPTIONS] 
+## Commands
 
-**rename** {TODO}
-**remove** {TODO}
+#### **add**
 
-#### ideas
-**generate**
-generate bash function TITLE that substitutes for using cdx [ALIAS]
+Usage: 
+```markdown
+cdx add [ALIAS] [DIR] [OPTIONS]
+```
+Adds directory DIR (current directory by default) under alias ALIAS (last subdirectory by default)
+
+| **Option**                 | **Description**                                                                   |
+| -------------------------- | --------------------------------------------------------------------------------- |
+| -f,--force                 | No confirmation needed for alias creation                                         |
+| -g,--generate=TITLE {TODO} | Immediately generate bash function [TITLE] that substitutes for using cdx [ALIAS] |
+
+#### **list**
+
+Usage: 
+```markdown
+cdx list [OPTIONS]
+```
+Lists all created aliases
+
+#### **rename** {TODO}
+
+#### **remove** {TODO}
+
+## ideas
+
+#### **generate**
+Generate bash function TITLE that substitutes for using cdx [ALIAS]

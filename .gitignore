@@ -1,8 +1,12 @@
 # Project-specific
 build/*
+release/*
+
 .*
+
 !.gitignore
 !.cdx_config.json
+
 # Prerequisites
 *.d
 
