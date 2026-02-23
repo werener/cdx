@@ -1,5 +1,7 @@
 # Project-specific
 build/*
+.*
+!.gitignore
 
 # Prerequisites
 *.d
