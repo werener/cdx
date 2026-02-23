@@ -2,7 +2,7 @@
 build/*
 .*
 !.gitignore
-
+!.cdx_config.json
 # Prerequisites
 *.d
 
