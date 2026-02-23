@@ -18,7 +18,7 @@ void run_add(CLI::App& app, AddOptions &options) {
     if (options.path == "")
         options.path = ".";
 
-    /* main logic */
+    
     if (!validate_config())
         return;
 

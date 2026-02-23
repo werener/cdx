@@ -8,13 +8,13 @@ target_dir = release
 
 all: main config
 
-main: $(target_dir)/$(target)
+main: $(target_dir)/$(target) src/utils.hpp src/defines.hpp
 
 config: 
 	@> $(target_dir)/.cdx_config.json
 	@echo "{\"version\": \"$(VERSION)\"}" >> $(target_dir)/.cdx_config.json
 	
-$(target_dir)/$(target): build/main.o build/cdx.o  build/list.o build/add.o 
+$(target_dir)/$(target): build/main.o build/cdx.o build/list.o build/add.o 
 	@mkdir -p $(@D)
 	$(cxx) $(flags) $^ -o $@
 
@@ -30,7 +30,7 @@ clean:
 	rm -rf build/
 	rm -rf $(target_dir)/$(target)
     
-run: $(target_dir)/$(target)
+run: $(target_dir)/$(target) src/utils.hpp src/defines.hpp
 	@./$(target_dir)/$(target) $(args)
 
 .PHONY: all run clean

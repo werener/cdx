@@ -10,14 +10,8 @@ void run_list() {
     if (!validate_config())
         return;
 
-    json j;
-    std::ifstream config_file(CONFIG_PATH);
-    if (config_file.is_open())
-        config_file >> j;
-    else {
-        std::cerr << "Unable to open file: " << CONFIG_PATH << std::endl;
-        return;
-    }
+    json j = get_config();
+    
     json associations = j["associations"].get<json>();
     for (auto& [alias, path] : associations.items()) {
         std::cout << RED << std::setw(j["max_alias_length"].get<int>()) << std::left << alias << RESET;

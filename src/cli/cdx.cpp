@@ -25,15 +25,17 @@ void run_cdx(CLI::App& app, CdxOptions &options) {
             return;
         }
     }
-    
+
+    if (options.alias.empty() && app.get_subcommands().empty()) {
+        std::cout << app.help();
+        return;
+    }
+    if (options.alias.empty() && !app.get_subcommands().empty())
+        return;
     if (!validate_config())
         return;
 
-    std::ifstream config_file(CONFIG_PATH);
-    json config;
-    config_file >> config;
-    config_file.close();
-
+    json config = get_config();
     if (options.version)
         std::cout << config["version"].get<std::string>() << std::endl;
     
@@ -42,11 +44,7 @@ void run_cdx(CLI::App& app, CdxOptions &options) {
         return;
     }
 
-    if (options.alias.empty()) {
-        std::cout << app.help();
-        return;
-    }
-
+        
     //  find alias, if such exists
     json associations = config["associations"].get<json>();
     if (!associations.contains(options.alias)) {

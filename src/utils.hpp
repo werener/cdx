@@ -26,11 +26,23 @@ static json BASE_CONFIG =
     {"associations", {}}
 };
 
-static bool validate_config(std::string cfg_path = CONFIG_PATH) {
+static json get_config() {
+    std::ifstream config_file(CONFIG_PATH);
+    json config;
+    if (config_file.is_open())
+        config_file >> config;
+    else {
+        std::cerr << "Unable to open file: " << CONFIG_PATH << std::endl;
+        exit(1);
+    }
+    return config;
+}
+
+static bool validate_config() {
     //  config file exists
-    std::ifstream cfg_file(cfg_path);
+    std::ifstream cfg_file(CONFIG_PATH);
     if (!cfg_file.is_open()) {
-        std::cerr << "Configuration file " << cfg_path << " doesn't exist" << std::endl;
+        std::cerr << "Configuration file " << CONFIG_PATH << " doesn't exist" << std::endl;
         cfg_file.close();
         return false;
     }
@@ -41,7 +53,7 @@ static bool validate_config(std::string cfg_path = CONFIG_PATH) {
         cfg_file >> j;
     }
     catch (const std::exception& e) {
-        std::cerr << "Error parsing " << cfg_path << ": " << e.what() << std::endl;
+        std::cerr << "Error parsing " << CONFIG_PATH << ": " << e.what() << std::endl;
         return false;
     }
 
@@ -49,10 +61,21 @@ static bool validate_config(std::string cfg_path = CONFIG_PATH) {
     bool is_valid = true;
     for (auto& [key, value] : BASE_CONFIG.items()) {
         if (!j.contains(key)) {
-            std::cerr << "Configuration file " << cfg_path << " has to contain " << std::quoted(key, '\'') << " field" << std::endl;
+            std::cerr << "Configuration file " << CONFIG_PATH << " has to contain " << std::quoted(key, '\'') << " field" << std::endl;
             is_valid = false;
         }
     }
 
+    //  max_alias_length has to be accurate
+    std::size_t max_alias_length = 0;
+    for (auto& [key, value] : j["associations"].items()) 
+        max_alias_length = std::max(key.length(), max_alias_length);
+
+    if (max_alias_length != j["max_alias_length"]) {
+        std::cerr << "Configuration file " << CONFIG_PATH 
+            << " has a wrong max_alias_length: " << j["max_alias_length"]
+            << ". Has to be " << max_alias_length << std::endl;
+        is_valid = false;
+    }
     return is_valid;
 }

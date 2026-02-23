@@ -21,7 +21,7 @@ Adds directory DIR (current directory by default) under alias ALIAS (last subdir
 
 | **Option**                 | **Description**                                                                   |
 | -------------------------- | --------------------------------------------------------------------------------- |
-| -f,--force                 | No confirmation needed for alias creation                                         |
+| -f,--force  {TODO}         | No confirmation needed for alias creation                                         |
 | -g,--generate=TITLE {TODO} | Immediately generate bash function [TITLE] that substitutes for using cdx [ALIAS] |
 
 #### **list**
