@@ -23,7 +23,7 @@ static json BASE_CONFIG =
 {
     {"version", VERSION},
     {"max_alias_length", 0},
-    {"aliases", {}}
+    {"associations", {}}
 };
 
 static bool validate_config(std::string cfg_path = CONFIG_PATH) {

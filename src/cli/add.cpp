@@ -2,7 +2,7 @@
 
 CLI::App *setup_add(CLI::App &app) {
     auto options = std::make_shared<AddOptions>();
-    auto *add = app.add_subcommand("add", "Adds an alias");
+    auto *add = app.add_subcommand("add", "Adds an association");
 
     add->add_flag("-f,--force", options->force, "No confirmation required");
     add->add_option("-g,--generate", options->generate, "Generate bash function that substitutes for using cdx");

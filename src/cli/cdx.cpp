@@ -28,20 +28,31 @@ void run_cdx(CLI::App& app, CdxOptions &options) {
     
     if (!validate_config())
         return;
+
+    std::ifstream config_file(CONFIG_PATH);
+    json config;
+    config_file >> config;
+    config_file.close();
+
+    if (options.version)
+        std::cout << config["version"].get<std::string>() << std::endl;
     
-    if (options.version) {
-        std::ifstream config_file(CONFIG_PATH);
-        json j;
-        config_file >> j;
-        std::cout << j["version"].get<std::string>() << std::endl;
+    if (IS_COMMAND(options.alias)) {
+        std::cerr << "Can't use command names as aliases" << std::endl;
+        return;
     }
 
-    if (IS_COMMAND(options.alias))
-        return;
-    
     if (options.alias.empty()) {
         std::cout << app.help();
         return;
     }
-    std::cout << "[CDX_PATH] /home/user/proj1 [/CDX_PATH]";
+
+    //  find alias, if such exists
+    json associations = config["associations"].get<json>();
+    if (!associations.contains(options.alias)) {
+        std::cerr << "Alias " << std::quoted(options.alias, '\'') << " isn't associated with any directory" << std::endl;
+        return;
+    }
+
+    std::cout << "[CDX_PATH]" << associations[options.alias] << "[/CDX_PATH]";
 }
