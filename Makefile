@@ -14,7 +14,6 @@ config:
 	
 $(target_dir)/$(target): build/main.o build/cdx.o  build/list.o build/add.o 
 	@mkdir -p $(@D)
-	
 	$(cxx) $(flags) $^ -o $@
 
 build/%.o: src/%.cpp
@@ -29,7 +28,7 @@ clean:
 	rm -rf build/
 	rm -rf $(target_dir)/$(target)
     
-run: $(target)
+run: $(target_dir)/$(target)
 	@./$(target_dir)/$(target) $(args)
 
 .PHONY: all run clean

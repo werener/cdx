@@ -13,16 +13,12 @@ void setup_cdx(CLI::App &app) {
 }
 
 void run_cdx(CdxOptions &options) {
-    if (options.version) {
-        std::ifstream config_file(".cdx_config.json");
-        if (config_file.is_open()) {
-            json j;
-            config_file >> j;
-            std::cout << j["version"].get<std::string>() << '\n';
-        }
-        else {
-            std::cout << "config not found"; 
-        }
+    if (options.version && validate_config(CONFIG_PATH)) {
+        std::ifstream config_file(CONFIG_PATH);
+        json j;
+        config_file >> j;
+        std::cout << j["version"].get<std::string>() << std::endl;
+           
     }
 
     if (options.alias.empty() || IS_COMMAND(options.alias))
