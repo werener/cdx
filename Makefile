@@ -9,7 +9,7 @@ main: $(target)
 
 $(target): build/$(target)
 
-build/$(target): build/main.o build/list.o build/cdx.o
+build/$(target): build/main.o build/cdx.o  build/list.o build/add.o
 	@mkdir -p $(@D)
 	$(cxx) $(Flags) $^ -o $@
 
