@@ -1,6 +1,7 @@
 #include "add.hpp"
 
-CLI::App* setup_add(CLI::App &app) {
+
+CLI::App *setup_add(CLI::App &app) {
     auto options = std::make_shared<AddOptions>();
     auto *add = app.add_subcommand("add", "Adds an alias");
 
@@ -10,22 +11,20 @@ CLI::App* setup_add(CLI::App &app) {
     add->add_option("alias", options->alias, "Alias of your directory")->required();
     add->add_option("path", options->path, "Path to your directory");
 
-    add->callback([&app, options]() {
-        run_add(*options);
-        // if (app.get_subcommands().empty()) {
-        //     run_add(*options);
-        // }
-    });
+    add->callback([&app, options]() { run_add(*options); });
     return add;
 }
 
 void run_add(AddOptions &options) {
-    if (options.force)
-        std::cout << "add with --force\n";
-    else
-        std::cout << "add\n";
+    if (options.path == "")
+        options.path = ".";
 
-    std::cout << "alias: " << options.alias << "\n";
-    std::cout << "path: " << options.path << "\n";
-    std::cout << "generate stuff: " << options.generate << "\n";
+    /* main logic */
+
+    if (options.generate != "") {
+
+    }
+    if (options.force)
+        return;
+    std::cout << "Confirm your actions (Y/n): ";
 }
