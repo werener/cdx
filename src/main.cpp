@@ -3,9 +3,9 @@
 #include "CLI/App.hpp"
 #include "CLI/Formatter.hpp"
 #include "CLI/Config.hpp"
+#include "cli/list.hpp"
 
-
-int main(int argc, char **argv) {
+int test(int argc, char **argv) {
     CLI::App app{"cdx"};
     bool force{false};
     app.add_flag("-f,--force", force, "No confirmation")
@@ -21,4 +21,15 @@ int main(int argc, char **argv) {
         << "path: " << path << std::endl; 
 
     return 0;
+}
+
+int main(int argc, char **argv) {
+    // test(argc, argv);
+
+    CLI::App app{"cdx"};
+
+    setup_list(app);
+
+    app.require_subcommand();
+    CLI11_PARSE(app, argc, argv);
 }
