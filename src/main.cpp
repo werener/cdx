@@ -13,5 +13,6 @@ int main(int argc, char **argv) {
     add->excludes(list);
     // app.require_subcommand();
     CLI11_PARSE(app, argc, argv);
+
     return 0;
 }

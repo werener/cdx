@@ -20,7 +20,7 @@ void run_list() {
     }
     auto aliases = j["aliases"].get<json>();
     for (auto& [alias, path] : aliases.items()) {
-        std::cout << RED << std::setw(j["max_alias_width"].get<int>()) << std::left << alias << RESET;
+        std::cout << RED << std::setw(j["max_alias_length"].get<int>()) << std::left << alias << RESET;
         std::cout << " | ";
         std::cout << GREEN << path << RESET << std::endl;
     }

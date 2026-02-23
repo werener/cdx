@@ -6,15 +6,14 @@ static bool IS_COMMAND(std::string s) { return COMMANDS.find(s) != COMMANDS.end(
 void setup_cdx(CLI::App &app) {
     auto options = std::make_shared<CdxOptions>();
 
-
     app.add_option("alias", options->alias, "Alias of the directory you want to cd into"); // TOOD
     app.add_flag("--version, -v", options->version, "Show version");
     app.add_flag("--new-config", options->new_config, "Resets your cdx configuration");
 
-    app.callback([options]() { run_cdx(*options); });
+    app.callback([&app, options]() { run_cdx(app, *options); });
 }
 
-void run_cdx(CdxOptions &options) {
+void run_cdx(CLI::App& app, CdxOptions &options) {
     if (options.new_config) {
         std::ofstream config_file(CONFIG_PATH);
         if (config_file.is_open()) {
@@ -37,9 +36,12 @@ void run_cdx(CdxOptions &options) {
         std::cout << j["version"].get<std::string>() << std::endl;
     }
 
-    if (options.alias.empty() || IS_COMMAND(options.alias))
+    if (IS_COMMAND(options.alias))
         return;
     
-    chdir(options.alias.c_str());
-    std::cout << "You cd'ed into " << options.alias << std::endl;
+    if (options.alias.empty()) {
+        std::cout << app.help();
+        return;
+    }
+    std::cout << "[CDX_PATH] /home/user/proj1 [/CDX_PATH]";
 }

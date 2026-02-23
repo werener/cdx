@@ -1,1 +1,10 @@
-{"version":"alpha 0.1.0"}
+{
+    "version":"alpha 0.1.0",
+    "max_alias_length": 2,
+    "aliases": {
+        "d": "~/Desktop",
+        "r": "~",
+        "do": "~/Downloads"
+    }
+    
+}

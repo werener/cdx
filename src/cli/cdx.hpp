@@ -8,4 +8,4 @@ struct CdxOptions {
 };
 
 void setup_cdx(CLI::App &app);
-void run_cdx(CdxOptions &options);
+void run_cdx(CLI::App& app, CdxOptions &options);

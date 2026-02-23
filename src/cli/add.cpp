@@ -8,22 +8,24 @@ CLI::App *setup_add(CLI::App &app) {
     add->add_option("-g,--generate", options->generate, "Generate bash function that substitutes for using cdx");
 
     add->add_option("alias", options->alias, "Alias of your directory")->required();
-    add->add_option("path", options->path, "Path to your directory");
+    add->add_option("path", options->path, "Path to your directory (defaults to .)");
 
-    add->callback([&app, options]() { run_add(*options); });
+    add->callback([&app, options]() { run_add(app, *options); });
     return add;
 }
 
-void run_add(AddOptions &options) {
+void run_add(CLI::App& app, AddOptions &options) {
     if (options.path == "")
         options.path = ".";
 
     /* main logic */
+    if (!validate_config())
+        return;
 
     if (options.generate != "") {
 
     }
     if (options.force)
         return;
-    std::cout << "Confirm your actions (Y/n): \n";
+    // std::cout << "Confirm your actions (Y/n): \n";
 }

@@ -22,7 +22,7 @@ using json = nlohmann::json;
 static json BASE_CONFIG =
 {
     {"version", VERSION},
-    {"max_alias_width", 0},
+    {"max_alias_length", 0},
     {"aliases", {}}
 };
 
