@@ -17,20 +17,21 @@ void run_cdx(CLI::App& app, CdxOptions &options) {
     if (options.new_config) {
         std::ofstream config_file(CONFIG_PATH);
         if (config_file.is_open()) {
-            config_file << BASE_CONFIG;
+            config_file << BASE_CONFIG.dump(4);
             std::cout << "Configuration file succesfully created!" << std::endl;
         }
         else {
             std::cerr << "Unable to open file: " << CONFIG_PATH << std::endl;
-            return;
         }
+        return;
     }
 
-    if (options.alias.empty() && app.get_subcommands().empty()) {
+    std::string alias = options.alias; 
+    if (alias.empty() && app.get_subcommands().empty()) {
         std::cout << app.help();
         return;
     }
-    if (options.alias.empty() && !app.get_subcommands().empty())
+    if (alias.empty() && !app.get_subcommands().empty())
         return;
     if (!validate_config())
         return;
@@ -39,18 +40,17 @@ void run_cdx(CLI::App& app, CdxOptions &options) {
     if (options.version)
         std::cout << config["version"].get<std::string>() << std::endl;
     
-    if (IS_COMMAND(options.alias)) {
+    if (IS_COMMAND(alias)) {
         std::cerr << "Can't use command names as aliases" << std::endl;
         return;
     }
 
-        
-    //  find alias, if such exists
+
     json associations = config["associations"].get<json>();
-    if (!associations.contains(options.alias)) {
-        std::cerr << "Alias " << std::quoted(options.alias, '\'') << " isn't associated with any directory" << std::endl;
+    if (!associations.contains(alias)) {
+        std::cerr << "Alias " << std::quoted(alias, '\'') << " isn't associated with any directory" << std::endl;
         return;
     }
 
-    std::cout << "[CDX_PATH]" << associations[options.alias] << "[/CDX_PATH]";
+    std::cout << "[CDX_PATH]" << associations[alias] << "[/CDX_PATH]";
 }

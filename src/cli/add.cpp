@@ -18,14 +18,18 @@ void run_add(CLI::App& app, AddOptions &options) {
     if (options.path == "")
         options.path = ".";
 
-    
     if (!validate_config())
         return;
 
-    if (options.generate != "") {
-
-    }
-    if (options.force)
-        return;
+    //  TODO: add path validation
+    json config = get_config();
+    config["associations"][options.alias] = options.path;
+    config["max_alias_length"] = options.alias.length();
+    write_config(config);
+    
+    // if (options.generate != "") {
+    // }
+    // if (options.force)
+    //     return;
     // std::cout << "Confirm your actions (Y/n): \n";
 }
