@@ -3,6 +3,7 @@
 
 struct CdxOptions {
     std::string alias;
+    bool version;
 };
 
 void setup_cdx(CLI::App &app);
