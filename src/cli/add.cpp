@@ -25,5 +25,5 @@ void run_add(AddOptions &options) {
     }
     if (options.force)
         return;
-    std::cout << "Confirm your actions (Y/n): ";
+    std::cout << "Confirm your actions (Y/n): \n";
 }
