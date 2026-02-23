@@ -1,7 +1,9 @@
 #pragma once
 
+#include "defines.hpp"
 #include "CLI/CLI.hpp"
 #include "json.hpp"
+
 using json = nlohmann::json;
 
 // #include <iostream>
@@ -16,17 +18,12 @@ using json = nlohmann::json;
 #include <unistd.h>
 #endif
 
-#ifndef CONFIG_PATH
-#define CONFIG_PATH "./release/.cdx_config.json"
-#endif 
-
-#ifndef VERSION
-#define VERSION "unknown"
-#endif 
 
 static json BASE_CONFIG =
 {
-    {"version", VERSION}
+    {"version", VERSION},
+    {"max_alias_width", 0},
+    {"aliases", {}}
 };
 
 static bool validate_config(std::string cfg_path = CONFIG_PATH) {
@@ -47,10 +44,15 @@ static bool validate_config(std::string cfg_path = CONFIG_PATH) {
         std::cerr << "Error parsing " << cfg_path << ": " << e.what() << std::endl;
         return false;
     }
-    //  config file contains version
-    if (!j.contains("version")) {
-        std::cerr << "Configuration file " << cfg_path << " has to contain 'version'" << std::endl;
-        return false;
+
+    //  config file fits the schema
+    bool is_valid = true;
+    for (auto& [key, value] : BASE_CONFIG.items()) {
+        if (!j.contains(key)) {
+            std::cerr << "Configuration file " << cfg_path << " has to contain " << std::quoted(key, '\'') << " field" << std::endl;
+            is_valid = false;
+        }
     }
-    return true;
+
+    return is_valid;
 }
