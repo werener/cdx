@@ -39,7 +39,6 @@ static void write_config(const json& j) {
         std::cerr << "Unable to open file: " << CONFIG_PATH << std::endl;
         return;
     }
-
 }
 
 static bool validate_config() {
@@ -62,11 +61,14 @@ static bool validate_config() {
     }
 
     //  config file fits the schema
-    bool is_valid = true;
     for (auto& [key, value] : BASE_CONFIG.items()) {
         if (!j.contains(key)) {
-            std::cerr << "Configuration file " << CONFIG_PATH << " has to contain " << std::quoted(key, '\'') << " field" << std::endl;
-            is_valid = false;
+            std::cerr << "Configuration file " << CONFIG_PATH << " has to contain "
+                << std::quoted(key, '\'') << " field" << std::endl;
+
+            j[key] = BASE_CONFIG[key];
+            write_config(j);
+            std::cout << "Added field " << std::quoted(key, '\'') << std::endl;
         }
     }
 
@@ -79,7 +81,10 @@ static bool validate_config() {
         std::cerr << "Configuration file " << CONFIG_PATH
             << " has a wrong max_alias_length: " << j["max_alias_length"]
             << ". Has to be " << max_alias_length << std::endl;
-        is_valid = false;
+
+        j["max_alias_length"] = max_alias_length;
+        write_config(j);
+        std::cout << "Fixed max_alias_length to be " << max_alias_length << std::endl;
     }
-    return is_valid;
+    return true;
 }

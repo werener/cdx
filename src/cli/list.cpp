@@ -11,8 +11,12 @@ void run_list() {
         return;
 
     json j = get_config();
-    
+
     json associations = j["associations"].get<json>();
+    if (associations.empty()) {
+        std::cout << "No associations in the configuration file yet" << std::endl;
+        return;
+    }
     for (auto& [alias, path] : associations.items()) {
         std::cout << RED << std::setw(j["max_alias_length"].get<int>()) << std::left << alias << RESET;
         std::cout << " | ";

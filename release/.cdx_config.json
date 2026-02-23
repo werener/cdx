@@ -1,9 +1,9 @@
 {
-    "version":"alpha 0.1.0",
-    "max_alias_length": 2,
     "associations": {
         "d": "~/Desktop",
-        "r": "~",
-        "do": "~/Downloads"
-    }   
+        "do": "/home/werener/Downloads",
+        "r": "~"
+    },
+    "max_alias_length": 2,
+    "version": "alpha 0.1.0"
 }
