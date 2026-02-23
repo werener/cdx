@@ -1,6 +1,6 @@
 #pragma once
-
 #include <CLI/CLI.hpp>
+
 
 struct AddOptions {
     std::string alias;
@@ -11,5 +11,5 @@ struct AddOptions {
 };
 
 
-CLI::App* setup_add(CLI::App &app);
+CLI::App *setup_add(CLI::App &app);
 void run_add(AddOptions &options);
