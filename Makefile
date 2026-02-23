@@ -2,7 +2,7 @@ VERSION = alpha 0.1.0
 CONFIG_PATH = ./release/.cdx_config.json
 
 cxx = g++
-flags = -std=c++11 -Wall -DVERSION='"$(VERSION)"' -DCONFIG_PATH='"$(CONFIG_PATH)"'
+flags = -std=c++17 -Wall -DVERSION='"$(VERSION)"' -DCONFIG_PATH='"$(CONFIG_PATH)"'
 target = cdx
 target_dir = release
 
@@ -24,7 +24,7 @@ build/%.o: src/%.cpp
 
 build/%.o: src/cli/%.cpp src/cli/%.hpp
 	@mkdir -p $(@D)
-	$(cxx) $(flags) -I src -c $< -o $@
+	@$(cxx) $(flags) -I src -c $< -o $@
 
 clean:
 	rm -rf build/
