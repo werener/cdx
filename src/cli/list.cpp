@@ -1,12 +1,16 @@
 #include "list.hpp"
 
 void setup_list(CLI::App &app) {
-    auto *list = app.add_subcommand("list", "Lists all you aliases");
-    list->add_flag("-f,--force", "No confirmation required");
+    auto options = std::make_shared<ListOptions>();
+    auto *list = app.add_subcommand("list", "Lists all your aliases");
 
-    list->callback([]() { run_list(); });
+    list->add_flag("-f,--force", options->force, "No confirmation required");
+    list->callback([options]() { run_list(*options); });
 }
 
-void run_list() {
-    std::cout << "All your aliases: " << '\n';
+void run_list(ListOptions &options) {
+    if (options.force)
+        std::cout << "list with --force\n";
+    else
+        std::cout << "list\n";
 }
