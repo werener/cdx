@@ -3,23 +3,23 @@ Flags = -std=c++11 -Wall
 target = cdx
 
 all: main
-	rm -rf build/*.o
+	@rm -rf build/*.o
 
 main: $(target)
 
 $(target): build/$(target)
 
-build/$(target): build/main.o build/list.o
+build/$(target): build/main.o build/list.o build/cdx.o
 	@mkdir -p $(@D)
 	$(cxx) $(Flags) $^ -o $@
 
-build/main.o: src/main.cpp src/cli/list.hpp
+build/%.o: src/%.cpp
 	@mkdir -p $(@D)
-	$(cxx) $(Flags) -c $< -o $@
+	$(cxx) $(Flags) -I src -c $< -o $@
 
-build/list.o: src/cli/list.cpp src/cli/list.hpp
+build/%.o: src/cli/%.cpp src/cli/%.hpp
 	@mkdir -p $(@D)
-	$(cxx) $(Flags) -c $< -o $@
+	$(cxx) $(Flags) -I src -c $< -o $@
 
 clean:
 	rm -rf build/ 
