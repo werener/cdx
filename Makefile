@@ -1,6 +1,8 @@
-VERSION = "alpha 0.1.0"
+VERSION = alpha 0.1.0
+CONFIG_PATH = ./release/.cdx_config.json
+
 cxx = g++
-flags = -std=c++11 -Wall
+flags = -std=c++11 -Wall -DVERSION='"$(VERSION)"' -DCONFIG_PATH='"$(CONFIG_PATH)"'
 target = cdx
 target_dir = release
 
@@ -10,7 +12,7 @@ main: $(target_dir)/$(target)
 
 config: 
 	@> $(target_dir)/.cdx_config.json
-	@echo "{\n\t\"version\": \"$(VERSION)\"\n}" >> $(target_dir)/.cdx_config.json
+	@echo "{\"version\": \"$(VERSION)\"}" >> $(target_dir)/.cdx_config.json
 	
 $(target_dir)/$(target): build/main.o build/cdx.o  build/list.o build/add.o 
 	@mkdir -p $(@D)
