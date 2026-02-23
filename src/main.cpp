@@ -1,10 +1,3 @@
-//  libraries
-#include "CLI/App.hpp"
-#include "CLI/Formatter.hpp"
-#include "CLI/Config.hpp"
-#include <iostream>
-#include <filesystem>
-
 //  subcommands
 #include "cli/cdx.hpp"
 #include "cli/list.hpp"

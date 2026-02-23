@@ -1,5 +1,5 @@
 #pragma once
-#include <CLI/CLI.hpp>
+#include "../utils.hpp"
 
 CLI::App *setup_list(CLI::App &app);
 void run_list();

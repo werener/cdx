@@ -1,5 +1,5 @@
 #pragma once
-#include <CLI/CLI.hpp>
+#include "../utils.hpp"
 
 struct CdxOptions {
     std::string alias;
