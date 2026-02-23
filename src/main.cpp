@@ -12,10 +12,10 @@
 
 int main(int argc, char **argv) {
     CLI::App app{"cdx"};
-
-    setup_list(app);
+    
     setup_cdx(app);
-    setup_add(app);
+    auto list = setup_list(app);
+    auto add = setup_add(app);
 
     // app.require_subcommand();
     CLI11_PARSE(app, argc, argv);

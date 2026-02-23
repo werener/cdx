@@ -10,12 +10,16 @@ Options:
 
 &emsp; -f,--force {TODO}
 no confirmation needed for alias creation
-
 &emsp; -g,--generate=TITLE {TODO}
-generates bash function TITLE that substitutes for using cdx [ALIAS]
+Immediately generates bash function TITLE that substitutes for using cdx [ALIAS]
+
 
 **list**
 Usage: list [OPTIONS] 
 
 **rename** {TODO}
 **remove** {TODO}
+
+#### ideas
+**generate**
+generate bash function TITLE that substitutes for using cdx [ALIAS]
