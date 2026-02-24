@@ -23,8 +23,12 @@ void run_add(CLI::App& app, AddOptions &options) {
 
     //  TODO: add path validation
     json config = get_config();
+    if (config["associations"].contains(options.alias)) {
+        std::cerr << "Trying to add an existing alias" << std::endl;
+        return;
+    }
     config["associations"][options.alias] = options.path;
-    config["max_alias_length"] = options.alias.length();
+    config["max_alias_length"] = std::max(config["max_alias_length"].get<size_t>(), options.alias.length());
     write_config(config);
     
     // if (options.generate != "") {
