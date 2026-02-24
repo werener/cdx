@@ -1,3 +1,6 @@
+# CDX
+CLI tool to create associations between an alias and a particular directory to access it more easily.
+
 ## Functionality
 
 Usage: 
@@ -5,38 +8,40 @@ Usage:
 cdx <command> [OPTIONS] [ARGS]`
 ```
 
-| **Option**    | **Description**                     |
-| ------------- | ----------------------------------- |
-| -v, --version | Show version of current istallation |
+| **Option**    | **Description**                              |
+| ------------- | -------------------------------------------- |
+| -v, --version | Show version of current istallation          |
+| --new-config  | Resets configuration of current installation |
 
-## Commands
+### Subcommands
 
 #### **add**
 
+Creates an association between an alias and a directory
 Usage: 
 ```markdown
 cdx add [ALIAS] [DIR] [OPTIONS]
 ```
-Adds directory DIR (current directory by default) under alias ALIAS (last subdirectory by default)
 
-| **Option**                 | **Description**                                                                   |
-| -------------------------- | --------------------------------------------------------------------------------- |
-| -f,--force  {TODO}         | No confirmation needed for alias creation                                         |
-| -g,--generate=TITLE {TODO} | Immediately generate bash function [TITLE] that substitutes for using cdx [ALIAS] |
+
+| **Option**          | **Description**                                            |
+| ------------------- | ---------------------------------------------------------- |
+| -r,--relative       | Adds exactly path [DIR] to the config, without any changes |
+| -g,--generate=TITLE | [TODO]                                                     |
 
 #### **list**
-
+Lists all created associations
 Usage: 
 ```markdown
 cdx list [OPTIONS]
 ```
-Lists all created aliases
 
-#### **rename** {TODO}
 
-#### **remove** {TODO}
-
-## ideas
+### TODO list
 
 #### **generate**
 Generate bash function TITLE that substitutes for using cdx [ALIAS]
+#### **rename** 
+Re-assign alias
+#### **remove**
+Remove an association
