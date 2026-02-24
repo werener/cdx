@@ -39,6 +39,11 @@ void run_add(CLI::App& app, AddOptions &options) {
         std::cerr << "Trying to add an existing alias" << std::endl;
         return;
     }
+    if (!std::filesystem::is_directory(path)) {
+        std::cerr << std::quoted(path, '\'') << " isn't a directory" << std::endl;
+        return; 
+    }
+
     if (!std::filesystem::exists(path)) {
         std::cerr << "Directory " << std::quoted(path, '\'') << " doesn't exist" << std::endl;
         return; 
@@ -50,5 +55,4 @@ void run_add(CLI::App& app, AddOptions &options) {
 
     // if (options.generate != "") {
     // }
-    
 }
