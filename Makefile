@@ -1,5 +1,5 @@
 VERSION = alpha 0.1.0
-CONFIG_PATH = ./release/.cdx_config.json
+CONFIG_PATH = /mnt/c/Users/werener/Desktop/gitfolder/cdx/release/.cdx_config.json
 
 cxx = g++
 flags = -std=c++17 -Wall -DVERSION='"$(VERSION)"' -DCONFIG_PATH='"$(CONFIG_PATH)"'

@@ -52,5 +52,5 @@ void run_cdx(CLI::App& app, CdxOptions &options) {
         return;
     }
 
-    std::cout << "[CDX_PATH]" << associations[alias] << "[/CDX_PATH]";
+    std::cout << "[CDX_PATH]" << associations[alias].get<std::string>() << "[/CDX_PATH]";
 }
