@@ -1,7 +1,9 @@
 {
     "associations": {
+        "b": "../../..",
         "d": "~/Desktop",
         "do": "/home/werener/Downloads",
+        "g": "/mnt/c/Users/werener/Desktop/gitfolder",
         "r": "~"
     },
     "max_alias_length": 2,

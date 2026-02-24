@@ -5,7 +5,7 @@ struct AddOptions {
     std::string alias;
     std::string path;
 
-    bool force;
+    bool relative;
     std::string generate;
 };
 

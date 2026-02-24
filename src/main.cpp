@@ -11,7 +11,8 @@ int main(int argc, char **argv) {
     auto add = setup_add(app);
 
     add->excludes(list);
-    // app.require_subcommand();
+    list->excludes(add);
+    
     CLI11_PARSE(app, argc, argv);
 
     return 0;

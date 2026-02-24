@@ -22,29 +22,29 @@ void run_cdx(CLI::App& app, CdxOptions &options) {
         }
         else {
             std::cerr << "Unable to open file: " << CONFIG_PATH << std::endl;
+            return;
         }
-        return;
     }
-
-    std::string alias = options.alias; 
-    if (alias.empty() && app.get_subcommands().empty()) {
-        std::cout << app.help();
-        return;
-    }
-    if (alias.empty() && !app.get_subcommands().empty())
-        return;
+    
     if (!validate_config())
         return;
-
     json config = get_config();
-    if (options.version)
+    
+    if (options.version) 
         std::cout << config["version"].get<std::string>() << std::endl;
+    
+
+    std::string alias = options.alias; 
+    if (alias.empty()) {
+        if(app.get_subcommands().empty() && (!options.version) && (!options.new_config))
+            std::cout << app.help();
+        return;
+    }
     
     if (IS_COMMAND(alias)) {
         std::cerr << "Can't use command names as aliases" << std::endl;
         return;
     }
-
 
     json associations = config["associations"].get<json>();
     if (!associations.contains(alias)) {
