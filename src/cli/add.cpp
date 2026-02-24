@@ -15,20 +15,26 @@ CLI::App *setup_add(CLI::App &app) {
 }
 
 void run_add(CLI::App& app, AddOptions &options) {
-    if (options.path == "")
-        options.path = ".";
 
     if (!validate_config())
         return;
 
     //  TODO: add path validation
     json config = get_config();
-    if (config["associations"].contains(options.alias)) {
+    std::string alias = options.alias;
+    std::string path = options.path;
+    if (path == "") path = ".";
+    
+    if (config["associations"].contains(alias)) {
         std::cerr << "Trying to add an existing alias" << std::endl;
         return;
     }
-    config["associations"][options.alias] = options.path;
-    config["max_alias_length"] = std::max(config["max_alias_length"].get<size_t>(), options.alias.length());
+    if (!std::filesystem::exists(path)) {
+        std::cerr << "Directory " << std::quoted(path, '\'') << " doesn't exist" << std::end;
+        return; 
+    }
+    config["associations"][alias] = path;
+    config["max_alias_length"] = std::max(config["max_alias_length"].get<size_t>(), alias.length());
     write_config(config);
     
     // if (options.generate != "") {
