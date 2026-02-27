@@ -58,7 +58,7 @@ void run_add(CLI::App& app, AddOptions& options) {
 
     config["max_alias_length"] = std::max(config["max_alias_length"].get<size_t>(), alias.length());
     write_config(config);
-    std::cout << "Succesfully added: "
+    std::cout << "Successfully added: "
         << RED << alias << RESET << " | "
         << GREEN << path << RESET << std::endl;
 }
