@@ -1,6 +1,5 @@
 #include "add.hpp"
 const std::string get_absolute_path(std::string const path) {
-    std::cout << path << std::endl;
     return std::filesystem::weakly_canonical(std::filesystem::absolute(path)).string();
 }
 
