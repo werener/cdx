@@ -51,9 +51,9 @@ static bool validate_config() {
     }
 
     //  config file can be parsed
-    json j;
+    json config;
     try {
-        cfg_file >> j;
+        cfg_file >> config;
     }
     catch (const std::exception& e) {
         std::cerr << "Error parsing " << CONFIG_PATH << ": " << e.what() << std::endl;
@@ -62,28 +62,28 @@ static bool validate_config() {
 
     //  config file fits the schema
     for (auto& [key, value] : BASE_CONFIG.items()) {
-        if (!j.contains(key)) {
+        if (!config.contains(key)) {
             std::cerr << "Configuration file " << CONFIG_PATH << " has to contain "
                 << std::quoted(key, '\'') << " field" << std::endl;
 
-            j[key] = BASE_CONFIG[key];
-            write_config(j);
+            config[key] = BASE_CONFIG[key];
+            write_config(config);
             std::cout << "Added field " << std::quoted(key, '\'') << std::endl;
         }
     }
 
     //  max_alias_length has to be accurate
     std::size_t max_alias_length = 0;
-    for (auto& [key, value] : j["associations"].items())
+    for (auto& [key, value] : config["associations"].items())
         max_alias_length = std::max(key.length(), max_alias_length);
 
-    if (max_alias_length != j["max_alias_length"]) {
+    if (max_alias_length != config["max_alias_length"]) {
         std::cerr << "Configuration file " << CONFIG_PATH
-            << " has a wrong max_alias_length: " << j["max_alias_length"]
+            << " has a wrong max_alias_length: " << config["max_alias_length"]
             << ". Has to be " << max_alias_length << std::endl;
 
-        j["max_alias_length"] = max_alias_length;
-        write_config(j);
+        config["max_alias_length"] = max_alias_length;
+        write_config(config);
         std::cout << "Fixed max_alias_length to be " << max_alias_length << std::endl;
     }
     return true;
