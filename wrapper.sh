@@ -5,8 +5,11 @@ cdx() {
     path=$(echo "$raw_output" | sed -n 's/.*\[CDX_PATH\]\(.*\)\[\/CDX_PATH\].*/\1/p')
     clean_output=$(echo "$raw_output" | sed 's/\[CDX_PATH\].*\[\/CDX_PATH\]//g')
     
-    echo -e "$clean_output"
+
     if [ -n "$path" ] && [ -d "$path" ]; then
         cd $path
+        echo -e -n "$clean_output"
+    else 
+        echo -e "$clean_output"
     fi
 }
