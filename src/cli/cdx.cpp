@@ -14,18 +14,9 @@ void setup_cdx(CLI::App &app) {
 }
 
 void run_cdx(CLI::App& app, CdxOptions &options) {
-    if (options.new_config) {
-        std::ofstream config_file(CONFIG_PATH);
-        if (config_file.is_open()) {
-            config_file << BASE_CONFIG.dump(4);
-            std::cout << "Configuration file succesfully created!" << std::endl;
-        }
-        else {
-            std::cerr << "Unable to open file: " << CONFIG_PATH << std::endl;
-            return;
-        }
-    }
-    
+    if (options.new_config) 
+        write_config(BASE_CONFIG);
+        
     if (!validate_config())
         return;
     json config = get_config();
