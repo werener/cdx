@@ -18,8 +18,8 @@ void run_list() {
         return;
     }
     for (auto& [alias, path] : associations.items()) {
-        std::cout << RED << std::setw(j["max_alias_length"].get<int>()) << std::left << alias << RESET;
-        std::cout << " | ";
-        std::cout << GREEN << path << RESET << std::endl;
+        std::cout << RED << std::setw(j["max_alias_length"].get<int>()) << std::left << alias << RESET
+            << " | "
+            << GREEN << path << RESET << std::endl;
     }
 }
