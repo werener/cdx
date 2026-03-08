@@ -10,6 +10,7 @@ using json = nlohmann::json;
 #include <filesystem>
 #include <unordered_set>
 #include <fstream>
+#include <format>
 
 #ifdef _WIN32
 #include <direct.h>

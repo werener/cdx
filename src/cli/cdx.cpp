@@ -32,16 +32,13 @@ void run_cdx(CLI::App& app, CdxOptions &options) {
         return;
     }
     
-    if (IS_COMMAND(alias)) {
-        std::cerr << "Can't use command names as aliases" << std::endl;
-        return;
-    }
-
+    if (IS_COMMAND(alias)) 
+        ERROR_MESSAGE("Can't use command names as aliases");
+    
     json associations = config["associations"].get<json>();
-    if (!associations.contains(alias)) {
-        std::cerr << "Alias " << std::quoted(alias, '\'') << " isn't associated with any directory" << std::endl;
-        return;
-    }
+    if (!associations.contains(alias)) 
+        ERROR_MESSAGE(std::format("Alias '{}' isn't associated with any directory", alias));
+    
 
     std::cout << "[CDX_PATH]" << associations[alias].get<std::string>() << "[/CDX_PATH]";
 }

@@ -2,7 +2,7 @@ VERSION = alpha 0.1.0
 CONFIG_PATH = /home/werener/Desktop/gitfolder/cdx/release/.cdx_config.json
 
 cxx = g++
-flags = -std=c++17 -Wall -DVERSION='"$(VERSION)"' -DCONFIG_PATH='"$(CONFIG_PATH)"'
+flags = -std=c++20 -Wall -DVERSION='"$(VERSION)"' -DCONFIG_PATH='"$(CONFIG_PATH)"'
 target = cdx
 target_dir = release
 

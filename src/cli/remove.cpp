@@ -4,7 +4,7 @@ CLI::App* setup_remove(CLI::App& app) {
     auto options = std::make_shared<RemoveOptions>();
     auto* remove = app.add_subcommand("remove", "Removes an association by alias");
 
-    remove->add_option("alias", options->alias, "Alias of the  directory")->required();
+    remove->add_option("alias", options->alias, "Alias of the directory")->required();
 
     remove->callback([&app, options]() { run_remove(app, *options); });
     return remove;
@@ -16,10 +16,9 @@ void run_remove(CLI::App& app, RemoveOptions& options) {
     json config = get_config();
 
     std::string alias = options.alias;
-    if (!config["associations"].contains(alias)) {
-        std::cout << "No associations with " << alias << " in the configuration file" << std::endl;
-        return;
-    }
+    if (!config["associations"].contains(alias)) 
+        ERROR_MESSAGE(std::format("No associations with {} in the configuration file", alias));
+    
     std::string path = config["associations"][alias].get<std::string>();
     config["associations"].erase(alias);
 

@@ -22,10 +22,9 @@ CLI::App* setup_add(CLI::App& app) {
 }
 
 void run_add(CLI::App& app, AddOptions& options) {
-    if (IS_COMMAND(options.alias)) {
-        std::cerr << "Can't use command names as aliases" << std::endl;
-        return;
-    }
+    if (IS_COMMAND(options.alias)) 
+        ERROR_MESSAGE("Can't use command names as aliases");
+    
     std::string alias = options.alias;
 
     if (!validate_config())
@@ -41,19 +40,15 @@ void run_add(CLI::App& app, AddOptions& options) {
     else
         path = get_absolute_path(options.path);
 
-    if (config["associations"].contains(alias)) {
-        std::cerr << "Trying to add an existing alias" << std::endl;
-        return;
-    }
-    if (!std::filesystem::is_directory(path)) {
-        std::cerr << std::quoted(path, '\'') << " isn't a directory" << std::endl;
-        return;
-    }
-
-    if (!std::filesystem::exists(path)) {
-        std::cerr << "Directory " << std::quoted(path, '\'') << " doesn't exist" << std::endl;
-        return;
-    }
+    if (config["associations"].contains(alias)) 
+       ERROR_MESSAGE("Trying to add an existing alias");
+    
+    if (!std::filesystem::is_directory(path)) 
+        ERROR_MESSAGE(std::format("'{}' isn't a directory", path));
+    
+    if (!std::filesystem::exists(path)) 
+        ERROR_MESSAGE(std::format("Directory '{}' doesn't exist", path));
+    
     config["associations"][alias] = path;
 
     config["max_alias_length"] = std::max(config["max_alias_length"].get<size_t>(), alias.length());
