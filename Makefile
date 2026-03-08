@@ -6,7 +6,7 @@ flags = -std=c++17 -Wall -DVERSION='"$(VERSION)"' -DCONFIG_PATH='"$(CONFIG_PATH)
 target = cdx
 target_dir = release
 
-sources = cdx.cpp list.cpp add.cpp remove.cpp
+sources = cdx.cpp list.cpp add.cpp remove.cpp main.cpp
 objects = $(addprefix build/, $(sources:.cpp=.o))
 
 all: main config
@@ -17,7 +17,7 @@ config:
 	@> $(target_dir)/.cdx_config.json
 	@echo "{\"version\": \"$(VERSION)\"}" >> $(target_dir)/.cdx_config.json
 	
-$(target_dir)/$(target): build/main.o $(objects)
+$(target_dir)/$(target): $(objects)
 	@mkdir -p $(@D)
 	$(cxx) $(flags) $^ -o $@
 
@@ -27,7 +27,7 @@ build/%.o: src/%.cpp
 
 build/%.o: src/cli/%.cpp src/cli/%.hpp src/utils.hpp src/defines.hpp
 	@mkdir -p $(@D)
-	@$(cxx) $(flags) -I src -c $< -o $@
+	$(cxx) $(flags) -I src -c $< -o $@
 
 clean:
 	rm -rf build/
