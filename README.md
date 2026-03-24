@@ -29,6 +29,7 @@ cdx add [ALIAS] [DIR] [OPTIONS]
 
 #### **list**
 Lists all created associations
+
 Usage: 
 ```markdown
 cdx list [OPTIONS]
@@ -36,6 +37,7 @@ cdx list [OPTIONS]
 
 #### **remove**
 Removes all associations, listed in [ALIASES]
+
 Usage:
 ```markdown
 cdx remove [ALIASES] [OPTIONS]
@@ -47,6 +49,7 @@ cdx remove [ALIASES] [OPTIONS]
 | -e, --except | Ignores this association during removal [TODO]       |
 #### **rename** 
 Re-assign alias
+
 Usage:
 ```markdown
 cdx rename [ALIAS] [NEWALIAS]
@@ -55,6 +58,7 @@ cdx rename [ALIAS] [NEWALIAS]
 Generate bash function TITLE that substitutes for using cdx [ALIAS]
 #### **config**
 Get information about the configuration file directly
+
 Usage:
 ```markdown
 cdx config [ACTION]
